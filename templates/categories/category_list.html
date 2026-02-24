@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Categories</h1>
+    <p class="mb-4"><a href="{% url 'category_create' %}" class="btn btn-success"><i class="bi bi-plus-lg"></i> Add Category</a></p>
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                    <p class="card-text small text-muted">{{ category.events.count }} event(s)</p>
+                    <a href="{% url 'category_detail' category.pk %}" class="btn btn-sm btn-primary">View Events</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-muted">No categories yet. <a href="{% url 'category_create' %}">Add the first category</a>.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if page_obj.has_other_pages %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

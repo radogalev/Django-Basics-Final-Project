@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Delete Venue{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Delete Venue</h1>
+    <div class="alert alert-warning">
+        <p class="mb-0">Are you sure you want to delete <strong>{{ venue.name }}</strong>? This will also delete {{ event_count }} event(s) at this venue. This action cannot be undone.</p>
+    </div>
+    <form method="post" action="{% url 'venue_delete' venue.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'venue_detail' venue.pk %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

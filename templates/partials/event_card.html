@@ -1,0 +1,17 @@
+{% load event_filters %}
+<div class="card h-100">
+    <div class="card-body">
+        <h5 class="card-title">{{ event.title }}</h5>
+        <p class="card-text text-muted small">{{ event|format_event_datetime }}</p>
+        <p class="card-text">{{ event.description|truncate_description:80 }}</p>
+        <p class="small mb-2">
+            <i class="bi bi-geo-alt"></i> {{ event.venue.name }}, {{ event.venue.city }}
+        </p>
+        {% for cat in event.categories.all|slice:":3" %}
+            <span class="badge bg-secondary me-1">{{ cat.name }}</span>
+        {% endfor %}
+        <div class="mt-2">
+            <a href="{% url 'event_detail' event.pk %}" class="btn btn-sm btn-primary">View</a>
+        </div>
+    </div>
+</div>

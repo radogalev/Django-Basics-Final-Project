@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load event_filters %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'event_list' %}">Events</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ event.title }}</h1>
+            <p class="text-muted"><i class="bi bi-calendar3"></i> {{ event|format_event_datetime }}</p>
+            <p class="lead">{{ event.description }}</p>
+            <p><strong>Venue:</strong> <a href="{% url 'venue_detail' event.venue.pk %}">{{ event.venue.name }}</a> — {{ event.venue.address }}, {{ event.venue.city }}</p>
+            <p><strong>Capacity:</strong> {{ event.max_attendees|capacity_display }}</p>
+            <div class="mb-3">
+                {% for cat in event.categories.all %}
+                <span class="badge bg-secondary me-1">{{ cat.name }}</span>
+                {% empty %}
+                <span class="text-muted">No categories</span>
+                {% endfor %}
+            </div>
+            <div class="mt-4">
+                <a href="{% url 'event_edit' event.pk %}" class="btn btn-outline-primary">Edit</a>
+                <a href="{% url 'event_delete_confirm' event.pk %}" class="btn btn-outline-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

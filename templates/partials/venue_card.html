@@ -1,0 +1,10 @@
+{% load event_tags %}
+<div class="card h-100">
+    <div class="card-body">
+        <h5 class="card-title">{{ venue.name }}</h5>
+        <p class="card-text text-muted small"><i class="bi bi-geo-alt"></i> {{ venue.city }}, {{ venue.address }}</p>
+        <p class="card-text small">Capacity: {{ venue.capacity|default:"N/A" }}</p>
+        <p class="small mb-2">{% event_count_by_venue venue %} event(s)</p>
+        <a href="{% url 'venue_detail' venue.pk %}" class="btn btn-sm btn-primary">View</a>
+    </div>
+</div>

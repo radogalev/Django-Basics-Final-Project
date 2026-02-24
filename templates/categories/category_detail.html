@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load event_filters %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'category_list' %}">Categories</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+        </ol>
+    </nav>
+    <h1>{{ category.name }}</h1>
+    {% if category.description %}<p class="lead">{{ category.description }}</p>{% endif %}
+    <h3 class="mt-4">Events in this category</h3>
+    {% if events %}
+    <div class="row g-4 mt-2">
+        {% for event in events %}
+        <div class="col-md-4">
+            {% include 'partials/event_card.html' with event=event %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-muted">No events in this category yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

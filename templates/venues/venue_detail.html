@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ venue.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'venue_list' %}">Venues</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ venue.name }}</li>
+        </ol>
+    </nav>
+    <h1>{{ venue.name }}</h1>
+    <p class="text-muted"><i class="bi bi-geo-alt"></i> {{ venue.address }}, {{ venue.city }}</p>
+    <p><strong>Capacity:</strong> {{ venue.capacity }}</p>
+    <p><strong>Contact:</strong> <a href="mailto:{{ venue.contact_email }}">{{ venue.contact_email }}</a>{% if venue.contact_phone %} | {{ venue.contact_phone }}{% endif %}</p>
+    {% if venue.description %}<p>{{ venue.description }}</p>{% endif %}
+    <div class="mt-4">
+        <a href="{% url 'venue_edit' venue.pk %}" class="btn btn-outline-primary">Edit</a>
+        <a href="{% url 'venue_delete_confirm' venue.pk %}" class="btn btn-outline-danger">Delete</a>
+    </div>
+    <h3 class="mt-5">Upcoming Events</h3>
+    {% if upcoming_events %}
+    <ul class="list-group">
+        {% for e in upcoming_events %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'event_detail' e.pk %}">{{ e.title }}</a>
+            <span class="text-muted">{{ e.event_date }} at {{ e.event_time }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-muted">No upcoming events at this venue.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load event_filters %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="text-center py-5">
+        <h1 class="display-4 fw-bold">Discover Local Events</h1>
+        <p class="lead text-muted">Find concerts, meetups, workshops, and more in your area.</p>
+    </div>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event display-4 text-primary"></i>
+                    <h3 class="mt-2">{{ total_events }}</h3>
+                    <p class="text-muted mb-0">Events</p>
+                    <a href="{% url 'event_list' %}" class="btn btn-primary mt-2">Browse</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <i class="bi bi-building display-4 text-primary"></i>
+                    <h3 class="mt-2">{{ total_venues }}</h3>
+                    <p class="text-muted mb-0">Venues</p>
+                    <a href="{% url 'venue_list' %}" class="btn btn-primary mt-2">Explore</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <i class="bi bi-tags display-4 text-primary"></i>
+                    <h3 class="mt-2">{{ total_categories }}</h3>
+                    <p class="text-muted mb-0">Categories</p>
+                    <a href="{% url 'category_list' %}" class="btn btn-primary mt-2">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="mb-4">Featured Events</h2>
+    {% if featured_events %}
+    <div class="row g-4">
+        {% for event in featured_events %}
+        <div class="col-md-4">
+            {% include 'partials/event_card.html' with event=event %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-muted">No events yet. <a href="{% url 'event_create' %}">Add the first event</a>!</p>
+    {% endif %}
+</div>
+{% endblock %}
