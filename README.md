@@ -32,14 +32,13 @@ templates/             # Global templates
 
 - Python 3.10+
 - PostgreSQL
-- Virtual environment (recommended)
+- Virtual environment 
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd "softuni web basics"
    ```
 
 2. **Create and activate virtual environment**
@@ -78,13 +77,7 @@ templates/             # Global templates
    python manage.py createsuperuser
    ```
 
-8. **Load sample data (optional)**
-   ```bash
-   python manage.py shell
-   # Create Venue, Category, Event objects as needed
-   ```
-
-9. **Run the server**
+8. **Run the server**
    ```bash
    python manage.py runserver
    ```
